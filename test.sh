@@ -1,0 +1,9 @@
+#!/bin/bash
+
+LIBPATH=$1
+
+make CFLAGS=-I/$LIBPATH/../include LDFLAGS=-L/$LIBPATH
+
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$LIBPATH
+
+./demo
