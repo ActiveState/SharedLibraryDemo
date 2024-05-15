@@ -1,0 +1,16 @@
+name: libunistring-demo-a1
+namespace: private/ActiveStateBE/shared
+version: "VERSION.0.1"
+description: Unicode string library
+authors:
+    - name: Bruno Haible
+      email: bruno@clisp.org
+dependencies:
+    - dependency:
+        name: autotools-builder
+        namespace: builder
+        versionRequirements: '>=0'
+features:
+    - name: libunistring-demo-a1
+      namespace: shared
+      version: "VERSION.0.1"

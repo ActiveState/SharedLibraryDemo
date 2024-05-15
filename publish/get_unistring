@@ -1,0 +1,8 @@
+#!/bin/bash
+
+VERSION=$1
+if [ -z "${VERSION}" ]; then
+   echo -e "Syntax: get_unistring <version>\nExample: 1.0, 1.1, 1.2\n";
+   exit 0
+fi
+wget https://ftp.gnu.org/gnu/libunistring/libunistring-${VERSION}.tar.gz
