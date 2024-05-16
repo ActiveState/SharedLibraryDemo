@@ -5,7 +5,7 @@ OBiJECTS = $(TARGET).o
 all: $(TARGET)
 
 $(TARGET): $(OBJECTS)
-	$(CC) $(CFLAGS) $(OBJECTS) -o $(TARGET) $(LDFLAGS) $(TARGET).c -lunistring
+	$(CC) $(CFLAGS) $(OBJECTS) -o $(TARGET) $(LDFLAGS) $(TARGET).c $(LINKFLAGS) 
 
 clean:
 	$(RM) $(TARGET) 
