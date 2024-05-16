@@ -13,6 +13,8 @@ FROM ubuntu:24.04
 # Pass the apikey as a build-arg to docker:
 #    docker build -t sharedlibdemo \
 #        --build-arg="APIKEY=$ACTIVESTATE_API_KEY" \
+#        --build-arg="AS_PLATFORM=pr13813" \
+#        --build-arg="ACTIVESTATE_API_HOST=pr13813.activestate.build" \
 #        --build-arg="AS_PROJECT=ActiveStateBE/SharedLibraryDemo" \
 #        --build-arg="GIT_PROJECT=SharedLibraryDemo" .
 #
@@ -26,20 +28,23 @@ FROM ubuntu:24.04
 RUN apt -y update && apt -y upgrade && apt -y install curl git build-essential vim wget
 
 # Install StateTool
-ADD https://platform.activestate.com/dl/cli/install.sh /install.sh
-RUN sh /install.sh -n -t /opt
+WORKDIR /tmp
+ADD /install_statetool.sh /tmp/install_statetool.sh
+RUN /tmp/install_statetool.sh
 
 WORKDIR /var
 
 ARG APIKEY
-ARG AS_PROJECT
-ARG GIT_PROJECT
+ARG AS_PROJECT=ActiveStateBE/SharedLibraryDemo
+ARG GIT_PROJECT=SharedLibraryDemo
+ENV AS_PLATFORM=prod
+ENV ACTIVESTATE_API_HOST=platform.activestate.com
+
 # Checkout Project to /opt - Logout when completed.
 RUN /opt/bin/state auth --token ${APIKEY} && \
     /opt/bin/state checkout $AS_PROJECT --runtime-path /opt/$AS_PROJECT && \
     /opt/bin/state use $AS_PROJECT && \
-    /opt/bin/state auth logout
-
+    /opt/bin/state auth logout;
 
 WORKDIR /var/$GIT_PROJECT
 
