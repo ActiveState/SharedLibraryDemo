@@ -1,21 +1,29 @@
 #!/bin/bash
 
+BOLD="\e[1;97m"
+GREEN="\e[32m"
+CYAN="\e[36m"
+ENDCOLOR="\e[0m"
+
 VERSION=$1
 if [ -z "${VERSION}" ]; then
    echo -e "Syntax: publish_unistring <version>\nExample: publish_unistring 1.0\n";
    exit 0
 fi
 
-echo "Downloading libunistring ${VERSION}\n";
-wget https://ftp.gnu.org/gnu/libunistring/libunistring-${VERSION}.tar.gz;
+echo -e "${GREEN}Downloading libunistring ${VERSION} ${ENDCOLOR}";
+WGET="wget https://ftp.gnu.org/gnu/libunistring/libunistring-${VERSION}.tar.gz";
+echo ${WGET}
+command ${WGET} 2>/dev/null;
 
-echo "Writing libunistring.${VERSION}.yaml";
+echo -e "\n${GREEN}Writing libunistring.${VERSION}.yaml${ENDCOLOR}";
 cp ./libunistring.ingredient.yaml libunistring.${VERSION}.yaml;
 sed -i "s/VERSION/${VERSION}/g" libunistring.${VERSION}.yaml;
+echo libunistring.${VERSION}.yaml;
 
-echo -e "Here is the metadata that we've prepared for libunistring: \n"
+echo -e "\n${GREEN}This metadata was manually created for libunistring: ${CYAN}\n"
 cat libunistring.${VERSION}.yaml;
-echo -e "If that looks good, run state publish using the command below:\n"
+echo -e "\n${GREEN}If that looks good, run state publish using the command below:${ENDCOLOR}\n"
 
 COMMAND="state publish --meta libunistring.${VERSION}.yaml libunistring-$VERSION.tar.gz"
-echo $COMMAND;
+echo -e "${BOLD} # $COMMAND ${ENDCOLOR}\n\n";
