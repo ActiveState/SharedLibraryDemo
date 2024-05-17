@@ -1,6 +1,6 @@
 #!/bin/bash
 
-LIBPATH=$1
+LIBPATH=$AS_LIB_DIR
 
 CFLAGS="-I/$LIBPATH/../include" 
 LDFLAGS="-L/$LIBPATH"
