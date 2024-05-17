@@ -1,0 +1,7 @@
+internal,alternative-build-selector,,added
+language,python,,removed
+shared,bzip2,,added
+shared,openssl,,added
+shared,zlib,,added
+shared,libpng,,added
+shared,libxslt,,added
