@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo -e "Prior to building the docker you must set\n ACTIVESTATE_API_HOST and AS_PLATFORM\n and run state auth:\n"
-echo -e "export ACTIVESTATE_API_HOST=pr13813.activestate.build; export AS_PLATFORM=pr13813; state auth;\n"
+echo -e "export ACTIVESTATE_API_HOST=pr13889.activestate.build; export AS_PLATFORM=pr13889; state auth;\n"
 
 echo "ACTIVESTATE_API_HOST = $ACTIVESTATE_API_HOST";
 echo "AS_PLATFORM = $AS_PLATFORM";

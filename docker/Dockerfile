@@ -13,8 +13,8 @@ FROM ubuntu:24.04
 # Pass the apikey as a build-arg to docker:
 #    docker build -t sharedlibdemo \
 #        --build-arg="APIKEY=$ACTIVESTATE_API_KEY" \
-#        --build-arg="AS_PLATFORM=pr13813" \
-#        --build-arg="ACTIVESTATE_API_HOST=pr13813.activestate.build" \
+#        --build-arg="AS_PLATFORM=pr13889" \
+#        --build-arg="ACTIVESTATE_API_HOST=pr13889.activestate.build" \
 #        --build-arg="AS_PROJECT=ActiveStateBE/SharedLibraryDemo" \
 #        --build-arg="GIT_PROJECT=SharedLibraryDemo" .
 #

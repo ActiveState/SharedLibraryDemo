@@ -15,7 +15,7 @@
 
 ## Reset the project:
 
-- Navigate to [ActiveStateBE/SharedLibraryDemo](https://pr13813.activestate.build/ActiveStateBE/SharedLibraryDemo/customize)
+- Navigate to [ActiveStateBE/SharedLibraryDemo](https://pr13889.activestate.build/ActiveStateBE/SharedLibraryDemo/customize)
 
 - Ensure that there are no libunistring packages in the build requirements.
 
@@ -35,15 +35,15 @@ cd SharedLibraryDemo/docker
 ```
 
 Export the PR settings for the demo.
-Currently we are using pr13813 for testing, this will change.
+Currently we are using pr13889 for testing, this will change.
 
 ```bash
-export AS_PLATFORM=pr13813;
-export ACTIVESTATE_API_HOST=pr13813.activestate.build;
+export AS_PLATFORM=pr13889;
+export ACTIVESTATE_API_HOST=pr13889.activestate.build;
 state auth;
 ```
 
-Click the Auth - ensure that the link matches pr13813.activestate.build.
+Click the Auth - ensure that the link matches pr13889.activestate.build.
 
 ```bash
 ./build_docker.sh;
