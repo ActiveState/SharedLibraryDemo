@@ -12,21 +12,53 @@
 
 #ifdef HAVE_LIBPNG
 #include <png.h>
+#include <stdlib.h>
+
+png_infop info_ptr; 
+png_bytepp row_pointers; 
+
+
+void read_png(char *file_name)
+{
+    printf("libpng: Reading %s file\n", file_name);	
+    FILE *fp = fopen(file_name, "rb");
+    png_structp png_ptr = png_create_read_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
+    info_ptr = png_create_info_struct(png_ptr);   
+    png_init_io(png_ptr, fp);
+    png_read_png(png_ptr, info_ptr, PNG_TRANSFORM_IDENTITY, NULL);
+    row_pointers = png_get_rows(png_ptr, info_ptr);
+    png_destroy_read_struct(&png_ptr, NULL, NULL); 
+    fclose(fp);
+    printf("libpng: Done reading %s file\n", file_name);
+}
+
+void write_png(char *file_name)
+{
+    printf("libpng: Writing duplicate  %s file\n", file_name);
+    FILE *fp = fopen(file_name, "wb");
+    png_structp png_ptr = png_create_write_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
+    png_init_io(png_ptr, fp);
+    png_set_rows(png_ptr, info_ptr, row_pointers);
+    png_write_png(png_ptr, info_ptr, PNG_TRANSFORM_IDENTITY, NULL);
+    png_destroy_write_struct(&png_ptr, &info_ptr);
+    fclose(fp);
+    printf("libpng: Done writing %s file\n", file_name);
+}
+
 #endif
-
-
 
 void main()
 {
-    printf("Testing the following: ");
+    printf("Testing the following: \n");
 #ifdef HAVE_UNISTRING
-    printf("unistring test");
+    printf("Unistring:\n");
     char name[] = "Testing";
     printf("The libunistring size of %s: %d\n", name, (int)u8_strlen(name));
 #endif
 
 #ifdef HAVE_ZLIB
-    printf("ZLIB test:");
+        printf("\n");
+        printf("ZLIB:\n");
 	char src[] = "The initialization of the state is the same, except that there is no compression level, of course, and two more elements of the structure are initialized. avail_in and next_in must be initialized before calling inflateInit(). This is because the application has the option to provide the start of the zlib stream in order for inflateInit() to have access to information about the compression method to aid in memory allocation. In the current implementation of zlib (up through versions 1.2.x), the method-dependent memory allocations are deferred to the first call of inflate() anyway. However those fields must be initialized since later versions of zlib that provide more compression methods may take advantage of this interface. In any case, no decompression is performed by inflateInit(), so the avail_out and next_out fields do not need to be initialized before calling.";
 	long unsigned int src_len = strlen(src) + 1;
 
@@ -52,29 +84,10 @@ void main()
 #endif
 
 #ifdef HAVE_LIBPNG
-	png_image image;
-	memset($image, 0, (sizeof image));
-	image.version = PNG_IMAGE_VERSION;
-	if (png_image_begin_read_from_file($image, argv[1]) != 0)
-	{
-		image.format = PNG_FORMAT_RGBA;
-		buffer = malloc(PNG_IMAGE_SIZE(image));
-		if (buffer != NULL && png_image_finish_read($image, NULL, buffer, 0, NULL) != 0)
-		{
-			if (png_image_write_to_file($image, argv[2], 0))
-			{
-				exit(0);
-			}
-		}
-		else
-		{
-			if (buffer == NULL)
-				png_free_image($image);
-			else
-				free(buffer);
-		}
-	}
-	fprintf(stderr, "pngtopng: error: %s\n", image.message);
-    exit (1);
+    printf("\n");
+    char file_name[] = "Sample.png";
+    char outfile_name[] = "duplicate.png";
+    read_png(file_name);
+    write_png(outfile_name);
 #endif
 }
