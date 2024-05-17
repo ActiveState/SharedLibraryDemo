@@ -8,6 +8,7 @@
 #ifdef HAVE_ZLIB
 #include <zlib.h>
 #include <assert.h>
+#include <stdlib.h>
 #endif
 
 #ifdef HAVE_LIBPNG
