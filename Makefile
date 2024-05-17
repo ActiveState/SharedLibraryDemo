@@ -1,11 +1,10 @@
 CC = gcc
 TARGET = demo
-OBiJECTS = $(TARGET).o
 
 all: $(TARGET)
 
-$(TARGET): $(OBJECTS)
-	$(CC) $(CFLAGS) $(OBJECTS) -o $(TARGET) $(LDFLAGS) $(TARGET).c $(LINKFLAGS) 
+$(TARGET): $(TARGET).o
+	$(CC) $(CFLAGS) -o $(TARGET) $(LDFLAGS) $(TARGET).c $(LINKFLAGS) 
 
 clean:
 	$(RM) $(TARGET) 

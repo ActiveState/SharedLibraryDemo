@@ -34,7 +34,7 @@ void read_png(char *file_name)
 
 void write_png(char *file_name)
 {
-    printf("libpng: Writing duplicate  %s file\n", file_name);
+    printf("libpng: Writing duplicate %s file\n", file_name);
     FILE *fp = fopen(file_name, "wb");
     png_structp png_ptr = png_create_write_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
     png_init_io(png_ptr, fp);
@@ -49,16 +49,16 @@ void write_png(char *file_name)
 
 void main()
 {
-    printf("Testing the following: \n");
 #ifdef HAVE_UNISTRING
-    printf("Unistring:\n");
+    printf("\n\e[32mTesting libunistring...\n\e[0m");
     char name[] = "Testing";
     printf("The libunistring size of %s: %d\n", name, (int)u8_strlen(name));
+    printf("\e[32mTest passes.\n\e[0m");
 #endif
 
 #ifdef HAVE_ZLIB
         printf("\n");
-        printf("ZLIB:\n");
+        printf("\e[32mTesting zlib...\n\e[0m");
 	char src[] = "The initialization of the state is the same, except that there is no compression level, of course, and two more elements of the structure are initialized. avail_in and next_in must be initialized before calling inflateInit(). This is because the application has the option to provide the start of the zlib stream in order for inflateInit() to have access to information about the compression method to aid in memory allocation. In the current implementation of zlib (up through versions 1.2.x), the method-dependent memory allocations are deferred to the first call of inflate() anyway. However those fields must be initialized since later versions of zlib that provide more compression methods may take advantage of this interface. In any case, no decompression is performed by inflateInit(), so the avail_out and next_out fields do not need to be initialized before calling.";
 	long unsigned int src_len = strlen(src) + 1;
 
@@ -80,14 +80,16 @@ void main()
 	printf("after decompress, len=%lu\n", src_len);
 	
 	free(dest);
-	printf("%s\n", src);
+        printf("\e[32mTest passes.\n\e[0m");	
 #endif
 
 #ifdef HAVE_LIBPNG
     printf("\n");
+    printf("\e[32mTesting libpng...\n\e[0m");
     char file_name[] = "Sample.png";
     char outfile_name[] = "duplicate.png";
     read_png(file_name);
     write_png(outfile_name);
+    printf("\e[32mTest passes.\n\e[0m\n");
 #endif
 }
