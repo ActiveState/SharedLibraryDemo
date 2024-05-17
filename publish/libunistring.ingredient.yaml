@@ -1,6 +1,6 @@
-name: libunistring-demo-a1
+name: libunistring-demo-SUFFIX
 namespace: private/ActiveStateBE/shared
-version: "VERSION.0.1"
+version: "VERSION"
 description: Unicode string library
 authors:
     - name: Bruno Haible
@@ -11,6 +11,6 @@ dependencies:
         namespace: builder
         versionRequirements: '>=0'
 features:
-    - name: libunistring-demo-a1
+    - name: libunistring-demo-SUFFIX
       namespace: shared
-      version: "VERSION.0.1"
+      version: "VERSION"
