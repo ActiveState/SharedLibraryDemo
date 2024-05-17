@@ -34,3 +34,6 @@ make CFLAGS="$CFLAGS" LDFLAGS="$LDFLAGS" LINKFLAGS="$LINKFLAGS"
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$LIBPATH
 
 ./demo
+
+# Cleanup:
+rm demo.o demo duplicate.png 2>/dev/null
