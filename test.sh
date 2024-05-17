@@ -21,9 +21,13 @@ do
          CFLAGS+=" -DHAVE_LIBPNG=1"
          LINKFLAGS+=" -lpng16"
       ;;
-   esac
+      esac
 done
 
+if [[ -z "$1" ]] then
+    CFLAGS+=" -DHAVE_UNISTRING=1 -DHAVE_ZLIB=1 -DHAVE_LIBPNG=1"
+    LINKFLAGS+=" -lunistring -lz -lpng16"
+fi
 
 make CFLAGS="$CFLAGS" LDFLAGS="$LDFLAGS" LINKFLAGS="$LINKFLAGS"
 
