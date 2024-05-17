@@ -37,8 +37,8 @@ WORKDIR /var
 ARG APIKEY
 ARG AS_PROJECT=ActiveStateBE/SharedLibraryDemo
 ARG GIT_PROJECT=SharedLibraryDemo
-ENV AS_PLATFORM=prod
-ENV ACTIVESTATE_API_HOST=platform.activestate.com
+ARG AS_PLATFORM=prod
+ARG ACTIVESTATE_API_HOST=platform.activestate.com
 
 # Checkout Project to /opt - Logout when completed.
 RUN /opt/bin/state auth --token ${APIKEY} && \
@@ -50,6 +50,9 @@ WORKDIR /var/$GIT_PROJECT
 
 ENV DEMO_DIR /var/$GIT_PROJECT
 ENV AS_LIB_DIR /opt/$AS_PROJECT/usr/lib
+ENV AS_PLATFORM=$AS_PLATFORM
+ENV ACTIVESTATE_API_HOST=$ACTIVESTATE_API_HOST
+
 
 CMD ["bash"]
 
