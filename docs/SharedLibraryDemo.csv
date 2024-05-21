@@ -5,3 +5,5 @@ shared,openssl,,added
 shared,zlib,,added
 shared,libpng,,added
 shared,libxslt,,added
+shared,libjpeg-turbo,,added
+shared,expat,,added
