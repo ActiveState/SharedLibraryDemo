@@ -1,0 +1,31 @@
+#!/bin/bash
+
+BOLD="\e[1;97m"
+GREEN="\e[32m"
+CYAN="\e[36m"
+ENDCOLOR="\e[0m"
+
+VERSION=$1
+SUFFIX=$2
+
+if [[ -z "${VERSION}" || -z "${SUFFIX}" ]]; then
+   echo -e "Syntax: publish_unistring <version> <suffix>\nExample: publish_unistring 1.0 rc2\n";
+   exit 0
+fi
+
+echo -e "${GREEN}Downloading libunistring ${VERSION} ${ENDCOLOR}";
+WGET="wget https://ftp.gnu.org/gnu/libunistring/libunistring-${VERSION}.tar.gz";
+echo ${WGET}
+command ${WGET} 2>/dev/null;
+
+META_FILE="libunistring-${SUFFIX}-${VERSION}.com"
+
+echo -e "\n${GREEN}Writing ${META_FILE}${ENDCOLOR}";
+cp ./libunistring.ingredient.com ${META_FILE};
+sed -i "s/SUFFIX/${SUFFIX}/g" ${META_FILE};
+sed -i "s/VERSION/${VERSION}/g" ${META_FILE};
+echo ${META_FILE};
+
+echo -e "\n${GREEN}This command was manually created to state publish libunistring: ${CYAN}\n"
+cat ${META_FILE};
+echo -e "\n${ENDCOLOR}";
