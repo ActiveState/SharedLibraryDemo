@@ -15,7 +15,8 @@ FROM ubuntu:24.04
 #        --build-arg="APIKEY=$ACTIVESTATE_API_KEY" \
 #        --build-arg="AS_PLATFORM=pr13889" \
 #        --build-arg="ACTIVESTATE_API_HOST=pr13889.activestate.build" \
-#        --build-arg="AS_PROJECT=ActiveStateBE/SharedLibraryDemo" \
+#        --build-arg="AS_ORG=ActiveStateBE" \
+#        --build-arg="AS_PROJECT=SharedLibraryDemo" \
 #        --build-arg="GIT_PROJECT=SharedLibraryDemo" .
 #
 # This container can be optionally run with authentication by passing the
@@ -35,21 +36,22 @@ RUN /tmp/install_statetool.sh
 WORKDIR /var
 
 ARG APIKEY
-ARG AS_PROJECT=ActiveStateBE/SharedLibraryDemo
+ARG AS_ORG=ActiveStateBE
+ARG AS_PROJECT=SharedLibraryDemo
 ARG GIT_PROJECT=SharedLibraryDemo
 ARG AS_PLATFORM=prod
 ARG ACTIVESTATE_API_HOST=platform.activestate.com
 
 # Checkout Project to /opt - Logout when completed.
 RUN /opt/bin/state auth --token ${APIKEY} && \
-    /opt/bin/state checkout $AS_PROJECT --runtime-path /opt/$AS_PROJECT && \
-    /opt/bin/state use $AS_PROJECT && \
+    /opt/bin/state checkout $AS_ORG/$AS_PROJECT --runtime-path /opt/$AS_ORG/$AS_PROJECT && \
+    /opt/bin/state use $AS_ORG/$AS_PROJECT && \
     /opt/bin/state auth logout;
 
-WORKDIR /var/$GIT_PROJECT
+WORKDIR /var/$AS_PROJECT/SharedLibraries
 
 ENV DEMO_DIR /var/$GIT_PROJECT
-ENV AS_LIB_DIR /opt/$AS_PROJECT/usr/lib
+ENV AS_LIB_DIR /opt/$AS_ORG/$AS_PROJECT/usr/lib
 ENV AS_PLATFORM=$AS_PLATFORM
 ENV ACTIVESTATE_API_HOST=$ACTIVESTATE_API_HOST
 
