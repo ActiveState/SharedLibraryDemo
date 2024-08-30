@@ -63,9 +63,11 @@ RUN /opt/bin/state auth --token ${APIKEY} && \
 /opt/bin/state use $AS_ORG/$AS_PROJECT && \
 /opt/bin/state auth logout;
 
-# Overwrite Environment File:
-RUN echo 'PATH="/opt/ActiveStateBE/Python2.7/exec:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"' > /etc/environment
-
-RUN sed -i 's~export PATH="/root/.cache/activestate/bin:$PATH"~export PATH="/opt/ActiveStateBE/Python2.7/exec:/root/.cache/activestate/bin:$PATH"~' /root/.bashrc
+# Take precedence in Environment File:
+RUN sed -i "s~PATH=\"~PATH=\"/opt/$AS_ORG/$AS_PROJECT/exec:~" /etc/environment
+# Take precedence in Bashrc:
+RUN sed -i "s~export PATH=\"/root/.cache/activestate/bin:\$PATH\"~export PATH=\"/opt/$AS_ORG/$AS_PROJECT/exec:/root/.cache/activestate/bin:\$PATH\"~" /root/.bashrc
+# Add /etc/profile case:
+RUN echo "export PATH=\"/opt/$AS_ORG/$AS_PROJECT/exec:/root/.cache/activestate/bin:\$PATH\"" > /etc/profile.d/02-ActiveStatePython.sh
 
 WORKDIR /
